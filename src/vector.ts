@@ -77,7 +77,7 @@ export class Vector implements Iterable<number> {
    */
   static setMag(vector: ReadonlyArray<number>, magnitude: number): number[] {
     const mag = Vector.getMag(vector);
-    return vector.map(v => (v / mag) * magnitude);
+    return vector.map(v => (mag !== 0 ? (v / mag) * magnitude : v));
   }
   /**
    * Limits a this vectors magnitude by the given amount.
@@ -245,7 +245,9 @@ export class Vector implements Iterable<number> {
    * @returns A copy of this Vector with the given magnitude
    */
   public setMag(magnitude: number): Vector {
-    return new Vector(Vector.mult(this.values, magnitude / this.magnitude));
+    return this.magnitude !== 0
+      ? new Vector(Vector.mult(this.values, magnitude / this.magnitude))
+      : this;
   }
   /**
    * Limits a this Vectors magnitude by the given amount.

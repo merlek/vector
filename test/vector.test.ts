@@ -51,7 +51,7 @@ describe('Vector', () => {
   });
 
   it('vector has an iterator', () => {
-     let count = 0;
+    let count = 0;
     for (const value of zero) {
       expect(value).toBe(0);
       count++;
@@ -77,6 +77,10 @@ describe('Vector', () => {
     const magInt = randomInt(0)(100);
     expect(unit.setMag(magInt).magnitude).toBe(magInt);
     expect(unit.setMag(mag).magnitude).toBeCloseTo(mag, precision);
+  });
+  it('setMag of the zero vector returns the zero vector', () => {
+    expect(zero.setMag(1).magnitude).toBe(0);
+    expect(Vector.setMag([0], 1)).toEqual([0]);
   });
 
   it('normalize returns a vector with magnitude of 1', () => {
@@ -209,6 +213,6 @@ describe('Vector', () => {
   it('dotProduct calculates the dot product of two vectors', () => {
     const a = Vector.create(1, 3, -5);
     const b = Vector.create(4, -2, -1);
-    expect(a.dotProduct(b)).toBeCloseTo(3);
+    expect(a.dotProduct(b)).toBeCloseTo(3, precision);
   });
 });
